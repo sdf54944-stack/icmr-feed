@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ICMR — خريطة SPX الحيّة</title>
+<style>
+  html,body{margin:0;background:#080b12;-webkit-tap-highlight-color:transparent}
+  #root{min-height:100vh}
+  #boot{color:#8a97a8;font-family:system-ui;text-align:center;padding:40px 20px;direction:rtl}
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"><div id="boot">…جارٍ تحميل ICMR</div></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useMemo, useRef, useCallback, useEffect } = React;
+
+
+// ═══════════════════════════════════════════════════════════════
+//  الإعداد الوحيد المطلوب: ضع رابط feed مستودعك (public) هنا.
+//  اتركه فارغًا "" لتشغيل الوضع اليدوي (بيانات ثابتة + تحرير).
+// ═══════════════════════════════════════════════════════════════
+// jsDelivr = مرآة CDN لملف مستودعك (ترويسات CORS صحيحة، أسرع، تجنّب مشاكل raw)
+const FEED = "https://cdn.jsdelivr.net/gh/sdf54944-stack/icmr-feed@main/data/spx.json";
+// بديل مباشر لو أردت raw: "https://raw.githubusercontent.com/sdf54944-stack/icmr-feed/main/data/spx.json"
+
+const FALLBACK = {
+  spot: 7716.8,
+  exp: "2026-09-18",
+  availableExp: ["2026-09-18"],
+  rows: [
+    { strike: 7760, callOi: 99,  putOi: 60, call: 0.75, put: 43.0 },
+    { strike: 7755, callOi: 97,  putOi: 58, call: 1.10, put: 38.5 },
+    { strike: 7750, callOi: 143, putOi: 52, call: 1.55, put: 33.6 },
+    { strike: 7745, callOi: 88,  putOi: 50, call: 2.25, put: 29.3 },
+    { strike: 7740, callOi: 114, putOi: 40, call: 3.20, put: 25.3 },
+    { strike: 7735, callOi: 87,  putOi: 44, call: 4.50, put: 21.3 },
+    { strike: 7730, callOi: 101, putOi: 55, call: 6.10, put: 18.1 },
+    { strike: 7725, callOi: 82,  putOi: 48, call: 8.00, put: 15.2 },
+    { strike: 7720, callOi: 89,  putOi: 51, call: 10.50, put: 12.8 },
+    { strike: 7717, callOi: 61,  putOi: 47, call: 13.40, put: 10.2 },
+  ],
+};
+
+function ICMRMap() {
+  const [side, setSide] = useState("call");
+  const [data, setData] = useState(FALLBACK);
+  const [spot, setSpot] = useState(FALLBACK.spot);
+  const [exp, setExp] = useState(FALLBACK.exp);
+  const [status, setStatus] = useState(FEED ? "loading" : "manual"); // loading|live|error|manual
+  const [updated, setUpdated] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [exporting, setExporting] = useState(false);
+  const captureRef = useRef(null);
+
+  const isCall = side === "call";
+
+  // ── جلب الـ feed ──
+  const load = useCallback(() => {
+    if (!FEED) return;
+    fetch(FEED + "?t=" + Date.now())
+      .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then((d) => {
+        setData(d);
+        setSpot(d.spot);
+        setExp(d.exp);
+        setStatus("live");
+        setUpdated(new Date());
+      })
+      .catch(() => setStatus("error")); // يُبقي آخر بيانات صالحة
+  }, []);
+
+  useEffect(() => {
+    if (!FEED) return;
+    load();
+    const id = setInterval(load, 60000);
+    return () => clearInterval(id);
+  }, [load]);
+
+  // الصفوف المعروضة: oi حسب الجهة النشطة
+  const rows = useMemo(
+    () => data.rows.map((r) => ({
+      strike: r.strike, call: r.call, put: r.put,
+      oi: isCall ? (r.callOi ?? r.oi ?? 0) : (r.putOi ?? r.oi ?? 0),
+    })),
+    [data, isCall]
+  );
+
+  const maxOi = useMemo(() => Math.max(...rows.map((r) => r.oi), 1), [rows]);
+  const currentStrike = useMemo(
+    () => rows.reduce((a, r) => (Math.abs(r.strike - spot) < Math.abs(a.strike - spot) ? r : a)).strike,
+    [rows, spot]
+  );
+  const topWalls = useMemo(
+    () => [...rows].sort((a, b) => b.oi - a.oi).slice(0, 4).sort((a, b) => a.oi - b.oi),
+    [rows]
+  );
+
+  // تحرير يدوي (يعدّل الـ callOi/putOi في المصدر)
+  const setRow = (strike, key, val) =>
+    setData((d) => ({
+      ...d,
+      rows: d.rows.map((r) => {
+        if (r.strike !== strike) return r;
+        const v = parseFloat(val) || 0;
+        if (key === "oi") return { ...r, [isCall ? "callOi" : "putOi"]: v };
+        return { ...r, [key]: v };
+      }),
+    }));
+
+  const exportPng = useCallback(async () => {
+    setExporting(true);
+    const ensure = () => new Promise((res, rej) => {
+      if (window.html2canvas) return res(window.html2canvas);
+      const s = document.createElement("script");
+      s.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+      s.onload = () => res(window.html2canvas);
+      s.onerror = () => rej(new Error());
+      document.head.appendChild(s);
+    });
+    try {
+      const h2c = await ensure();
+      const canvas = await h2c(captureRef.current, { backgroundColor: "#080b12", scale: 2 });
+      const a = document.createElement("a");
+      a.download = `ICMR_${exp}_${currentStrike}.png`;
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+    } catch { alert("تعذّر التصدير — جرّب لقطة شاشة يدوية."); }
+    finally { setExporting(false); }
+  }, [currentStrike, exp]);
+
+  const dot = { live: "#3ddc84", loading: "#f5c542", error: "#ff5b5b", manual: "#7c8aa0" }[status];
+  const statusTxt = {
+    live: `مباشر · تحديث ${updated ? updated.toLocaleTimeString("ar") : ""}`,
+    loading: "…جارٍ الجلب",
+    error: "انقطاع — يُعرض آخر بيانات",
+    manual: "يدوي",
+  }[status];
+
+  return (
+    <div style={S.screen}>
+      <div style={S.tools}>
+        <button onClick={() => setEditing((e) => !e)} style={{ ...S.toolBtn, ...(editing ? S.toolOn : {}) }}>
+          {editing ? "تم" : "تعديل"}
+        </button>
+        <button onClick={exportPng} disabled={exporting} style={S.toolBtn}>
+          {exporting ? "…جارٍ" : "تصدير صورة"}
+        </button>
+        {data.availableExp?.length > 1 && (
+          <select value={exp} onChange={(e) => setExp(e.target.value)} style={S.select}>
+            {data.availableExp.map((x) => <option key={x} value={x}>{x}</option>)}
+          </select>
+        )}
+        <span style={{ ...S.status, marginInlineStart: "auto" }}>
+          <span style={{ ...S.dot, background: dot }} /> {statusTxt}
+        </span>
+      </div>
+
+      <div ref={captureRef} style={S.capture}>
+        <div style={S.topBar}>
+          <button style={S.plus}>+</button>
+          <button onClick={() => setSide("put")} style={{ ...S.toggle, ...(side === "put" ? S.toggleOn : {}) }}>
+            PUT <span style={{ fontSize: 13 }}>🎯</span>
+          </button>
+          <button onClick={() => setSide("call")} style={{ ...S.toggle, ...(side === "call" ? S.toggleOn : {}) }}>
+            CALL <span style={{ fontSize: 13 }}>🎯</span>
+          </button>
+        </div>
+
+        <div style={S.ladder}>
+          <div style={S.watermark}>
+            <div style={S.wmMain}>CMR</div>
+            <div style={S.wmSub}>Inad's Chrono Maker Range</div>
+          </div>
+          <div style={S.axis} />
+
+          {rows.map((r) => {
+            const isCur = r.strike === currentStrike;
+            const w = Math.max(6, (r.oi / maxOi) * 100);
+            const kFmt = r.oi >= 1000 ? Math.round(r.oi / 1000) + "K" : r.oi + (r.oi < 1000 && r.oi > 0 && FEED ? "" : "K");
+            return (
+              <div key={r.strike} style={S.row} onClick={() => !editing && setSpot(r.strike)}>
+                <div style={{ ...S.strikeTag, ...(isCur ? S.strikeTagCur : {}) }}>{r.strike}</div>
+                <div style={S.barZone}>
+                  {isCur && <div style={S.spotLine} />}
+                  <div style={{
+                    ...S.bar, width: `${w}%`,
+                    background: isCur ? "linear-gradient(90deg,#5a1620,#b0303f)"
+                      : isCall ? "linear-gradient(90deg,#12402b,#3ddc84)"
+                      : "linear-gradient(90deg,#4a1620,#ff5b5b)",
+                    border: isCur ? "1px solid #ff5b5b" : "none",
+                  }}>
+                    <span style={S.oiLabel}>{kFmt}</span>
+                  </div>
+                </div>
+                {editing ? (
+                  <div style={S.editCol} onClick={(e) => e.stopPropagation()}>
+                    <input style={S.inp} value={r.oi} onChange={(e) => setRow(r.strike, "oi", e.target.value)} />
+                    <input style={{ ...S.inp, color: "#4ade80" }} value={r.call} onChange={(e) => setRow(r.strike, "call", e.target.value)} />
+                    <input style={{ ...S.inp, color: "#ff6b6b" }} value={r.put} onChange={(e) => setRow(r.strike, "put", e.target.value)} />
+                  </div>
+                ) : (
+                  <div style={S.prices}>
+                    <span style={{ ...S.call, opacity: isCall ? 1 : 0.45 }}>{r.call.toFixed(2)}</span>
+                    <span style={{ ...S.put, opacity: isCall ? 0.45 : 1 }}>{r.put.toFixed(2)}</span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div style={S.spotBox} dir="rtl">
+          <span style={S.spotLabel}>سعر SPX الآن</span>
+          {editing ? (
+            <input style={S.spotInp} value={spot} onChange={(e) => setSpot(parseFloat(e.target.value) || 0)} />
+          ) : (
+            <span style={S.spotValue}>{spot.toLocaleString("en-US", { minimumFractionDigits: 1 })}</span>
+          )}
+        </div>
+
+        <div style={S.chips}>
+          {topWalls.map((r) => (
+            <div key={r.strike} style={S.chip}>
+              <span style={{ color: "#7c8aa0", marginInlineEnd: 6 }}>
+                {r.oi >= 1000 ? Math.round(r.oi / 1000) + "K" : r.oi + "K"}
+              </span>
+              <b style={{ color: "#3ddc84" }}>{r.strike}</b>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const S = {
+  screen: { maxWidth: 430, margin: "0 auto", minHeight: "100vh", background: "#080b12", color: "#e6edf3", fontFamily: "system-ui,-apple-system,sans-serif", padding: "10px 14px 22px", boxSizing: "border-box" },
+  tools: { display: "flex", alignItems: "center", gap: 8, marginBottom: 10, flexWrap: "wrap" },
+  toolBtn: { padding: "6px 14px", borderRadius: 18, background: "#0f1420", border: "1px solid #1e2635", color: "#c8d2e0", fontSize: 13, fontWeight: 700, cursor: "pointer" },
+  toolOn: { border: "1px solid #3ddc84", color: "#fff" },
+  select: { padding: "6px 10px", borderRadius: 14, background: "#0f1420", border: "1px solid #1e2635", color: "#c8d2e0", fontSize: 13, fontWeight: 700 },
+  status: { display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "#8a97a8", direction: "rtl" },
+  dot: { width: 8, height: 8, borderRadius: "50%", display: "inline-block" },
+
+  capture: { background: "#080b12", padding: 4, borderRadius: 8 },
+  topBar: { display: "flex", alignItems: "center", gap: 10, marginBottom: 14 },
+  plus: { width: 40, height: 34, borderRadius: 9, background: "#0f1420", border: "1px solid #1e2635", color: "#e6edf3", fontSize: 20, cursor: "pointer" },
+  toggle: { display: "flex", alignItems: "center", gap: 6, padding: "7px 16px", borderRadius: 20, background: "#0f1420", border: "1px solid #1e2635", color: "#c8d2e0", fontSize: 14, fontWeight: 700, cursor: "pointer" },
+  toggleOn: { border: "1px solid #3ddc84", color: "#fff", boxShadow: "0 0 12px rgba(61,220,132,.25)" },
+
+  ladder: { position: "relative", paddingLeft: 4 },
+  axis: { position: "absolute", left: 58, top: 0, bottom: 0, width: 2, background: "#26314a" },
+  watermark: { position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", pointerEvents: "none", opacity: 0.05 },
+  wmMain: { fontSize: 110, fontWeight: 900, letterSpacing: 4, lineHeight: 1 },
+  wmSub: { fontSize: 20, fontWeight: 600, marginTop: 4 },
+
+  row: { display: "flex", alignItems: "center", height: 52, position: "relative", cursor: "pointer" },
+  strikeTag: { width: 54, fontSize: 15, fontWeight: 700, color: "#aeb9c9", textAlign: "left" },
+  strikeTagCur: { background: "#fff", color: "#111", borderRadius: 5, padding: "3px 6px", fontWeight: 800, width: "auto", minWidth: 42, textAlign: "center" },
+  barZone: { flex: 1, position: "relative", marginLeft: 6, display: "flex", alignItems: "center" },
+  spotLine: { position: "absolute", left: 0, right: -8, top: "50%", borderTop: "2px dashed #7c8aa0", transform: "translateY(-50%)", zIndex: 0 },
+  bar: { height: 26, borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 8, position: "relative", zIndex: 1, transition: "width .25s ease" },
+  oiLabel: { fontSize: 13, fontWeight: 700, color: "#eafff2", textShadow: "0 1px 2px rgba(0,0,0,.5)" },
+  prices: { width: 92, display: "flex", justifyContent: "space-between", paddingLeft: 10, fontSize: 14, fontWeight: 700 },
+  call: { color: "#4ade80" }, put: { color: "#ff6b6b" },
+  editCol: { width: 120, display: "flex", gap: 4, paddingLeft: 6 },
+  inp: { width: 36, background: "#0f1420", border: "1px solid #26314a", borderRadius: 5, color: "#e6edf3", fontSize: 12, textAlign: "center", padding: "3px 2px" },
+  spotInp: { width: 90, background: "#0f1420", border: "1px solid #26314a", borderRadius: 6, color: "#f5c542", fontSize: 22, fontWeight: 800, textAlign: "center", padding: "2px 6px" },
+  spotBox: { display: "flex", alignItems: "baseline", justifyContent: "center", gap: 8, marginTop: 20 },
+  spotLabel: { color: "#9aa6b6", fontSize: 15 }, spotValue: { color: "#f5c542", fontSize: 30, fontWeight: 800, letterSpacing: 1 },
+  chips: { display: "flex", gap: 8, justifyContent: "center", marginTop: 16, flexWrap: "wrap" },
+  chip: { display: "flex", alignItems: "center", padding: "8px 14px", borderRadius: 22, background: "#0c1a14", border: "1px solid #1c3a2a", fontSize: 14 },
+};
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<ICMRMap />);
+</script>
+</body>
+</html>
