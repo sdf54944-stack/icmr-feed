@@ -4,19 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ICMR — خريطة SPX الحيّة</title>
+<link rel="icon" href="data:,">
 <style>
   html,body{margin:0;background:#080b12;-webkit-tap-highlight-color:transparent}
   #root{min-height:100vh}
-  #boot{color:#8a97a8;font-family:system-ui;text-align:center;padding:40px 20px;direction:rtl}
+  #boot{color:#8a97a8;font-family:system-ui;text-align:center;padding:40px 20px;direction:rtl;font-size:15px}
+  #err{color:#ff6b6b;font-family:ui-monospace,monospace;font-size:12px;padding:20px;
+       direction:ltr;text-align:left;white-space:pre-wrap;display:none;line-height:1.6}
 </style>
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
-<div id="root"><div id="boot">…جارٍ تحميل ICMR</div></div>
+<div id="root"><div id="boot">…جارٍ تحميل ICMR<br><span style="font-size:12px;color:#5c6a7e">(ثوانٍ لأول مرة)</span></div></div>
+<div id="err"></div>
 
-<script type="text/babel" data-presets="react">
+<!-- كود التطبيق مخزّن كنص، ويُحوّل يدويًا بعد تأكيد جاهزية Babel — يتجنّب سباق التحميل -->
+<script type="text/plain" id="app-src">
 const { useState, useMemo, useRef, useCallback, useEffect } = React;
 
 
@@ -279,7 +281,56 @@ const S = {
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<ICMRMap />);
+root.render(React.createElement(ICMRMap));
+</script>
+
+<script>
+(function(){
+  function fail(m){
+    var b=document.getElementById("boot"); if(b) b.style.display="none";
+    var d=document.getElementById("err"); if(d){ d.style.display="block"; d.textContent="خطأ:\n"+m; }
+  }
+  // مصادر بديلة لكل مكتبة (cdnjs أولًا، ثم jsdelivr، ثم unpkg)
+  var LIBS = {
+    React: [
+      "https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js",
+      "https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"
+    ],
+    ReactDOM: [
+      "https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js",
+      "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"
+    ],
+    Babel: [
+      "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js",
+      "https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"
+    ]
+  };
+  // حمّل سكربتًا مع تجربة الروابط بالتتابع
+  function loadOne(urls, i, done){
+    if(i>=urls.length){ done(false); return; }
+    var s=document.createElement("script");
+    s.src=urls[i]; s.crossOrigin="anonymous";
+    s.onload=function(){ done(true); };
+    s.onerror=function(){ loadOne(urls,i+1,done); };
+    document.head.appendChild(s);
+  }
+  // حمّل React ثم ReactDOM ثم Babel بالترتيب
+  loadOne(LIBS.React,0,function(ok1){
+    if(!ok1||!window.React) return fail("تعذّر تحميل React من كل المصادر — تحقّق من الاتصال أو حجب المتصفح للنطاقات.");
+    loadOne(LIBS.ReactDOM,0,function(ok2){
+      if(!ok2||!window.ReactDOM) return fail("تعذّر تحميل ReactDOM.");
+      loadOne(LIBS.Babel,0,function(ok3){
+        if(!ok3||!window.Babel) return fail("تعذّر تحميل Babel.");
+        // كل شيء جاهز — حوّل ونفّذ يدويًا
+        try{
+          var code=document.getElementById("app-src").textContent;
+          var out=Babel.transform(code,{presets:["react"]}).code;
+          (0,eval)(out);
+        }catch(e){ fail("خطأ في التنفيذ:\n"+(e&&e.message?e.message:e)); }
+      });
+    });
+  });
+})();
 </script>
 </body>
 </html>
