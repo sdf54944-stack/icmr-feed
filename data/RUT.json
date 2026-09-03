@@ -1,6 +1,6 @@
 {
   "symbol": "RUT",
-  "spot": 2967.7,
+  "spot": 2967.0,
   "exp": "2026-09-03 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
     {
@@ -8,70 +8,70 @@
       "callOi": 2505.0,
       "putOi": 6461.0,
       "call": 0.03,
-      "put": 22.45
+      "put": 22.65
     },
     {
       "strike": 2985.0,
       "callOi": 1360.0,
       "putOi": 1148.0,
-      "call": 0.08,
-      "put": 17.55
+      "call": 0.05,
+      "put": 17.7
     },
     {
       "strike": 2980.0,
       "callOi": 3599.0,
       "putOi": 4156.0,
-      "call": 0.12,
-      "put": 12.65
+      "call": 0.1,
+      "put": 12.7
     },
     {
       "strike": 2975.0,
       "callOi": 933.0,
       "putOi": 1259.0,
-      "call": 0.4,
-      "put": 7.9
+      "call": 0.25,
+      "put": 7.95
     },
     {
       "strike": 2970.0,
       "callOi": 1872.0,
       "putOi": 10334.0,
-      "call": 1.48,
+      "call": 1.15,
       "put": 3.75
     },
     {
       "strike": 2965.0,
       "callOi": 571.0,
       "putOi": 1144.0,
-      "call": 4.05,
-      "put": 1.4
+      "call": 3.35,
+      "put": 1.1
     },
     {
       "strike": 2960.0,
       "callOi": 987.0,
       "putOi": 9313.0,
-      "call": 8.1,
-      "put": 0.57
+      "call": 7.75,
+      "put": 0.4
     },
     {
       "strike": 2955.0,
       "callOi": 812.0,
       "putOi": 1212.0,
-      "call": 12.9,
-      "put": 0.28
+      "call": 12.55,
+      "put": 0.15
     },
     {
       "strike": 2950.0,
       "callOi": 5765.0,
       "putOi": 11986.0,
-      "call": 17.75,
-      "put": 0.15
+      "call": 17.5,
+      "put": 0.12
     },
     {
       "strike": 2945.0,
       "callOi": 846.0,
       "putOi": 1694.0,
-      "call": 22.7,
-      "put": 0.1
+      "call": 22.5,
+      "put": 0.07
     }
   ],
   "availableExp": [
