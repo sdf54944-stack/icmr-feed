@@ -6,16 +6,16 @@
   ],
   "detail": {
     "SPX": {
-      "spot": 7736.2,
+      "spot": 7745.8,
       "strikes": 19
     },
     "RUT": {
-      "spot": 2963.4,
-      "strikes": 10
+      "spot": 2966.1,
+      "strikes": 9
     },
     "QQQ": {
-      "spot": 716.4,
-      "strikes": 25
+      "spot": 717.7,
+      "strikes": 26
     }
   }
 }
