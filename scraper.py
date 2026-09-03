@@ -3,7 +3,6 @@ from collections import defaultdict
 
 URL = "https://cdn.cboe.com/api/global/delayed_quotes/options/_SPX.json"
 BAND = 35
-TARGET = sys.argv[1] if len(sys.argv) > 1 else None
 
 raw = json.load(urllib.request.urlopen(URL, timeout=25))
 payload = raw.get("data", raw)
@@ -28,22 +27,27 @@ def px(o):
 
 today = dt.date.today().isoformat()
 exps = sorted({p[0] for o in opts if (p:=parse(o["option"]))})
-exp_sel = TARGET or next((e for e in exps if e >= today), exps[0] if exps else None)
+near = next((e for e in exps if e >= today), exps[0] if exps else None)  # الأسعار من الأقرب
 
-buck = defaultdict(lambda:{"callOi":0,"putOi":0,"callVol":0,"putVol":0,"call":0.0,"put":0.0})
+# OI يتجمّع عبر كل التواريخ | الأسعار من أقرب تاريخ فقط
+buck = defaultdict(lambda:{"callOi":0,"putOi":0,"call":0.0,"put":0.0})
 for o in opts:
     p = parse(o["option"])
     if not p: continue
     exp, kind, k = p
-    if exp != exp_sel or not (lo <= k <= hi): continue
+    if not (lo <= k <= hi): continue
     r = buck[k]
-    oi, vol = o.get("open_interest",0) or 0, o.get("volume",0) or 0
-    if kind == "C": r["callOi"], r["callVol"], r["call"] = oi, vol, px(o)
-    else:           r["putOi"],  r["putVol"],  r["put"]  = oi, vol, px(o)
+    oi = o.get("open_interest",0) or 0
+    if kind == "C":
+        r["callOi"] += oi
+        if exp == near: r["call"] = px(o)
+    else:
+        r["putOi"] += oi
+        if exp == near: r["put"] = px(o)
 
 rows = [{"strike":k, **v} for k,v in sorted(buck.items(), reverse=True)]
-out = {"spot":round(spot or 0,1),"exp":exp_sel,"rows":rows,"availableExp":exps[:12]}
+out = {"spot":round(spot or 0,1),"exp":f"{near} (OI مجمّع لكل التواريخ)","rows":rows,"availableExp":exps[:12]}
 open("data/spx.json","w").write(json.dumps(out, indent=2))
-tot_oi = sum(r["callOi"]+r["putOi"] for r in rows)
-tot_vol = sum(r["callVol"]+r["putVol"] for r in rows)
-print(f"wrote {len(rows)} strikes | exp={exp_sel} | spot={out['spot']} | totOI={tot_oi} totVol={tot_vol}")
+maxc = max((r["callOi"] for r in rows), default=0)
+maxp = max((r["putOi"] for r in rows), default=0)
+print(f"wrote {len(rows)} strikes | near={near} | spot={out['spot']} | maxCallOI={maxc} maxPutOI={maxp}")
