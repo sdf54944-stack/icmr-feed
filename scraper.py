@@ -1,9 +1,13 @@
 import json, urllib.request, sys, re, datetime as dt
 from collections import defaultdict
 
-SYMBOLS = ["_SPX", "_NDX", "_RUT"]
+# رمز: نسبة النطاق (±%). المؤشرات أضيق، الصناديق أوسع. أضف/احذف بحرّية.
+CONFIG = {
+    "_SPX": 0.006,
+    "_RUT": 0.008,
+    "QQQ":  0.015,
+}
 BASE_URL = "https://cdn.cboe.com/api/global/delayed_quotes/options/{}.json"
-PCT = 0.006   # ±0.6% حول السعر — نطاق نسبي يعمل لأي رمز
 
 SYM = re.compile(r"([A-Z]+)(\d{6})([CP])(\d{8})")
 def parse(sym):
@@ -19,7 +23,7 @@ def px(o):
 index = {}
 today = dt.date.today().isoformat()
 
-for sym in SYMBOLS:
+for sym, pct in CONFIG.items():
     clean = sym.lstrip("_")
     try:
         raw = json.load(urllib.request.urlopen(BASE_URL.format(sym), timeout=25))
@@ -32,7 +36,7 @@ for sym in SYMBOLS:
     if not spot or not opts:
         print(f"skip {sym}: no data", file=sys.stderr); continue
 
-    lo, hi = spot*(1-PCT), spot*(1+PCT)   # نطاق نسبي — لا كشف خطوة
+    lo, hi = spot*(1-pct), spot*(1+pct)
 
     exps = sorted({p[0] for o in opts if (p := parse(o["option"]))})
     near = next((e for e in exps if e >= today), exps[0] if exps else None)
