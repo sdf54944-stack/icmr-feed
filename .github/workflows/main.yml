@@ -1,6 +1,6 @@
 name: update-spx
 on:
-  schedule: [{ cron: "*/10 13-20 * * 1-5" }]
+  schedule: [{ cron: "*/10 13-21 * * 1-5" }]
   workflow_dispatch:
 jobs:
   run:
@@ -8,7 +8,7 @@ jobs:
     permissions: { contents: write }
     steps:
       - uses: actions/checkout@v4
-      - run: mkdir -p data && python scraper.py 2026-09-16
+      - run: mkdir -p data && python scraper.py
       - run: |
           git config user.name bot
           git config user.email bot@users.noreply.github.com
