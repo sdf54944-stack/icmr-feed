@@ -27,7 +27,8 @@ const { useState, useMemo, useRef, useCallback, useEffect } = React;
 //  اتركه فارغًا "" لتشغيل الوضع اليدوي (بيانات ثابتة + تحرير).
 // ═══════════════════════════════════════════════════════════════
 // jsDelivr = مرآة CDN لملف مستودعك (ترويسات CORS صحيحة، أسرع، تجنّب مشاكل raw)
-const FEED = "https://raw.githubusercontent.com/sdf54944-stack/icmr-feed/main/data/spx.json";
+const BASE = "https://raw.githubusercontent.com/sdf54944-stack/icmr-feed/main/data/";
+const FEED = BASE + "SPX.json"; // الرمز الافتراضي
 // بديل مباشر لو أردت raw: "https://raw.githubusercontent.com/sdf54944-stack/icmr-feed/main/data/spx.json"
 
 const FALLBACK = {
@@ -57,14 +58,25 @@ function ICMRMap() {
   const [updated, setUpdated] = useState(null);
   const [editing, setEditing] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [symbol, setSymbol] = useState("SPX");   // الرمز النشط
+  const [symbols, setSymbols] = useState(["SPX"]); // قائمة الرموز المتاحة
   const captureRef = useRef(null);
 
   const isCall = side === "call";
 
-  // ── جلب الـ feed ──
+  // ── جلب قائمة الرموز المتاحة مرة واحدة ──
+  useEffect(() => {
+    if (!BASE) return;
+    fetch(BASE + "index.json?t=" + Date.now())
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => { if (d && d.symbols && d.symbols.length) setSymbols(d.symbols); })
+      .catch(() => {}); // لو فشل، يبقى SPX فقط
+  }, []);
+
+  // ── جلب بيانات الرمز النشط ──
   const load = useCallback(() => {
-    if (!FEED) return;
-    fetch(FEED + "?t=" + Date.now())
+    if (!BASE) return;
+    fetch(BASE + symbol + ".json?t=" + Date.now())
       .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then((d) => {
         setData(d);
@@ -74,10 +86,11 @@ function ICMRMap() {
         setUpdated(new Date());
       })
       .catch(() => setStatus("error")); // يُبقي آخر بيانات صالحة
-  }, []);
+  }, [symbol]);
 
   useEffect(() => {
-    if (!FEED) return;
+    if (!BASE) return;
+    setStatus("loading");
     load();
     const id = setInterval(load, 60000);
     return () => clearInterval(id);
@@ -145,6 +158,14 @@ function ICMRMap() {
 
   return (
     <div style={S.screen}>
+      {symbols.length > 1 && (
+        <div style={S.symbols}>
+          {symbols.map((s) => (
+            <button key={s} onClick={() => setSymbol(s)}
+              style={{ ...S.symBtn, ...(symbol === s ? S.symOn : {}) }}>{s}</button>
+          ))}
+        </div>
+      )}
       <div style={S.tools}>
         <button onClick={() => setEditing((e) => !e)} style={{ ...S.toolBtn, ...(editing ? S.toolOn : {}) }}>
           {editing ? "تم" : "تعديل"}
@@ -217,7 +238,7 @@ function ICMRMap() {
         </div>
 
         <div style={S.spotBox} dir="rtl">
-          <span style={S.spotLabel}>سعر SPX الآن</span>
+          <span style={S.spotLabel}>سعر {symbol} الآن</span>
           {editing ? (
             <input style={S.spotInp} value={spot} onChange={(e) => setSpot(parseFloat(e.target.value) || 0)} />
           ) : (
@@ -243,6 +264,9 @@ function ICMRMap() {
 const S = {
   screen: { maxWidth: 430, margin: "0 auto", minHeight: "100vh", background: "#080b12", color: "#e6edf3", fontFamily: "system-ui,-apple-system,sans-serif", padding: "10px 14px 22px", boxSizing: "border-box" },
   tools: { display: "flex", alignItems: "center", gap: 8, marginBottom: 10, flexWrap: "wrap" },
+  symbols: { display: "flex", gap: 8, justifyContent: "center", marginBottom: 10, flexWrap: "wrap" },
+  symBtn: { padding: "7px 20px", borderRadius: 20, background: "#0f1420", border: "1px solid #1e2635", color: "#8a97a8", fontSize: 15, fontWeight: 800, cursor: "pointer", letterSpacing: 1 },
+  symOn: { border: "1px solid #f5c542", color: "#f5c542", background: "#1a1608", boxShadow: "0 0 12px rgba(245,197,66,.2)" },
   toolBtn: { padding: "6px 14px", borderRadius: 18, background: "#0f1420", border: "1px solid #1e2635", color: "#c8d2e0", fontSize: 13, fontWeight: 700, cursor: "pointer" },
   toolOn: { border: "1px solid #3ddc84", color: "#fff" },
   select: { padding: "6px 10px", borderRadius: 14, background: "#0f1420", border: "1px solid #1e2635", color: "#c8d2e0", fontSize: 13, fontWeight: 700 },
