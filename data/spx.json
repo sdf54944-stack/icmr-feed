@@ -1,7 +1,113 @@
 {
   "spot": 7666.6,
-  "exp": "2026-09-05",
-  "rows": [],
+  "exp": "2026-09-16",
+  "rows": [
+    {
+      "strike": 7700.0,
+      "callOi": 763.0,
+      "putOi": 401.0,
+      "call": 55.15,
+      "put": 77.65
+    },
+    {
+      "strike": 7695.0,
+      "callOi": 7.0,
+      "putOi": 4.0,
+      "call": 57.85,
+      "put": 75.2
+    },
+    {
+      "strike": 7690.0,
+      "callOi": 67.0,
+      "putOi": 73.0,
+      "call": 60.55,
+      "put": 73.3
+    },
+    {
+      "strike": 7685.0,
+      "callOi": 8.0,
+      "putOi": 8.0,
+      "call": 62.8,
+      "put": 71.05
+    },
+    {
+      "strike": 7680.0,
+      "callOi": 32.0,
+      "putOi": 59.0,
+      "call": 65.7,
+      "put": 68.65
+    },
+    {
+      "strike": 7675.0,
+      "callOi": 2989.0,
+      "putOi": 77.0,
+      "call": 68.8,
+      "put": 66.7
+    },
+    {
+      "strike": 7670.0,
+      "callOi": 22.0,
+      "putOi": 82.0,
+      "call": 72.2,
+      "put": 64.7
+    },
+    {
+      "strike": 7665.0,
+      "callOi": 29.0,
+      "putOi": 7.0,
+      "call": 75.2,
+      "put": 62.3
+    },
+    {
+      "strike": 7660.0,
+      "callOi": 26.0,
+      "putOi": 76.0,
+      "call": 77.95,
+      "put": 60.45
+    },
+    {
+      "strike": 7655.0,
+      "callOi": 10.0,
+      "putOi": 45.0,
+      "call": 81.0,
+      "put": 59.05
+    },
+    {
+      "strike": 7650.0,
+      "callOi": 3890.0,
+      "putOi": 4019.0,
+      "call": 84.55,
+      "put": 56.7
+    },
+    {
+      "strike": 7645.0,
+      "callOi": 37.0,
+      "putOi": 270.0,
+      "call": 87.65,
+      "put": 55.3
+    },
+    {
+      "strike": 7640.0,
+      "callOi": 69.0,
+      "putOi": 54.0,
+      "call": 90.85,
+      "put": 53.85
+    },
+    {
+      "strike": 7635.0,
+      "callOi": 23.0,
+      "putOi": 32.0,
+      "call": 94.45,
+      "put": 52.2
+    },
+    {
+      "strike": 7630.0,
+      "callOi": 86.0,
+      "putOi": 143.0,
+      "call": 98.05,
+      "put": 50.3
+    }
+  ],
   "availableExp": [
     "2026-09-02",
     "2026-09-03",
