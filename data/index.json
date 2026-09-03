@@ -1,0 +1,21 @@
+{
+  "symbols": [
+    "SPX",
+    "RUT",
+    "QQQ"
+  ],
+  "detail": {
+    "SPX": {
+      "spot": 7666.6,
+      "strikes": 18
+    },
+    "RUT": {
+      "spot": 2953.2,
+      "strikes": 10
+    },
+    "QQQ": {
+      "spot": 709.6,
+      "strikes": 24
+    }
+  }
+}
