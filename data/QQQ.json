@@ -1,8 +1,15 @@
 {
   "symbol": "QQQ",
-  "spot": 718.1,
+  "spot": 719.1,
   "exp": "2026-09-04 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
+    {
+      "strike": 729.0,
+      "callOi": 13847.0,
+      "putOi": 1010.0,
+      "call": 0.07,
+      "put": 11.55
+    },
     {
       "strike": 728.0,
       "callOi": 19244.0,
@@ -170,13 +177,6 @@
       "putOi": 16651.0,
       "call": 8.99,
       "put": 0.36
-    },
-    {
-      "strike": 708.0,
-      "callOi": 10050.0,
-      "putOi": 20407.0,
-      "call": 9.93,
-      "put": 0.29
     }
   ],
   "availableExp": [
