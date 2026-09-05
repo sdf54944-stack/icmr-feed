@@ -115,6 +115,38 @@ function ICMRMap() {
     [rows]
   );
 
+  // ── تحليلات المرحلة 1 (تُحسب من callOi/putOi الأصلية، لا المتأثرة بمبدّل CALL/PUT) ──
+  const analytics = useMemo(() => {
+    const rs = data.rows.map((r) => ({
+      strike: r.strike,
+      callOi: r.callOi ?? r.oi ?? 0,
+      putOi: r.putOi ?? 0,
+    }));
+    const totCall = rs.reduce((s, r) => s + r.callOi, 0);
+    const totPut = rs.reduce((s, r) => s + r.putOi, 0);
+    const pcr = totCall > 0 ? totPut / totCall : 0;
+
+    // أقوى مقاومة = أكبر كول فوق السعر | أقوى دعم = أكبر بوت تحت السعر
+    const above = rs.filter((r) => r.strike > spot);
+    const below = rs.filter((r) => r.strike < spot);
+    const resistance = above.length ? above.reduce((a, r) => (r.callOi > a.callOi ? r : a)) : null;
+    const support = below.length ? below.reduce((a, r) => (r.putOi > a.putOi ? r : a)) : null;
+
+    // Max Pain = السترايك بأقل إجمالي قيمة جوهرية (أقل ألم)
+    let maxPain = null, minPain = Infinity;
+    for (const s of rs) {
+      let pain = 0;
+      for (const r of rs) {
+        if (s.strike > r.strike) pain += (s.strike - r.strike) * r.callOi;
+        if (s.strike < r.strike) pain += (r.strike - s.strike) * r.putOi;
+      }
+      if (pain < minPain) { minPain = pain; maxPain = s.strike; }
+    }
+    return { pcr, resistance, support, maxPain };
+  }, [data, spot]);
+
+  const fmtK = (n) => n >= 1000 ? Math.round(n / 1000) + "K" : String(n);
+
   // تحرير يدوي (يعدّل الـ callOi/putOi في المصدر)
   const setRow = (strike, key, val) =>
     setData((d) => ({
@@ -184,6 +216,30 @@ function ICMRMap() {
       </div>
 
       <div ref={captureRef} style={S.capture}>
+        <div style={S.analytics}>
+          <div style={S.aCell}>
+            <div style={S.aLabel}>PUT/CALL</div>
+            <div style={{ ...S.aVal, color: analytics.pcr > 1 ? "#ff6b6b" : "#4ade80" }}>
+              {analytics.pcr.toFixed(2)}
+            </div>
+            <div style={S.aHint}>{analytics.pcr > 1 ? "دفاعي" : "صعودي"}</div>
+          </div>
+          <div style={S.aCell}>
+            <div style={S.aLabel}>مقاومة</div>
+            <div style={{ ...S.aVal, color: "#4ade80" }}>{analytics.resistance ? analytics.resistance.strike : "—"}</div>
+            <div style={S.aHint}>{analytics.resistance ? fmtK(analytics.resistance.callOi) + " كول" : ""}</div>
+          </div>
+          <div style={S.aCell}>
+            <div style={S.aLabel}>Max Pain</div>
+            <div style={{ ...S.aVal, color: "#f5c542" }}>{analytics.maxPain ?? "—"}</div>
+            <div style={S.aHint}>جذب</div>
+          </div>
+          <div style={S.aCell}>
+            <div style={S.aLabel}>دعم</div>
+            <div style={{ ...S.aVal, color: "#ff6b6b" }}>{analytics.support ? analytics.support.strike : "—"}</div>
+            <div style={S.aHint}>{analytics.support ? fmtK(analytics.support.putOi) + " بوت" : ""}</div>
+          </div>
+        </div>
         <div style={S.topBar}>
           <button style={S.plus}>+</button>
           <button onClick={() => setSide("put")} style={{ ...S.toggle, ...(side === "put" ? S.toggleOn : {}) }}>
@@ -205,17 +261,26 @@ function ICMRMap() {
             const isCur = r.strike === currentStrike;
             const w = Math.max(6, (r.oi / maxOi) * 100);
             const kFmt = r.oi >= 1000 ? Math.round(r.oi / 1000) + "K" : r.oi + (r.oi < 1000 && r.oi > 0 && FEED ? "" : "K");
+            const isRes = analytics.resistance && r.strike === analytics.resistance.strike;
+            const isSup = analytics.support && r.strike === analytics.support.strike;
+            const isMP = analytics.maxPain && r.strike === analytics.maxPain;
+            const badge = isRes ? { t: "مقاومة", c: "#4ade80" } : isSup ? { t: "دعم", c: "#ff6b6b" } : isMP ? { t: "Max Pain", c: "#f5c542" } : null;
             return (
               <div key={r.strike} style={S.row} onClick={() => !editing && setSpot(r.strike)}>
                 <div style={{ ...S.strikeTag, ...(isCur ? S.strikeTagCur : {}) }}>{r.strike}</div>
                 <div style={S.barZone}>
                   {isCur && <div style={S.spotLine} />}
+                  {badge && <span style={{ ...S.badge, background: badge.c }}>{badge.t}</span>}
                   <div style={{
                     ...S.bar, width: `${w}%`,
                     background: isCur ? "linear-gradient(90deg,#5a1620,#b0303f)"
                       : isCall ? "linear-gradient(90deg,#12402b,#3ddc84)"
                       : "linear-gradient(90deg,#4a1620,#ff5b5b)",
-                    border: isCur ? "1px solid #ff5b5b" : "none",
+                    border: isCur ? "1px solid #ff5b5b"
+                      : isRes ? "1.5px solid #4ade80"
+                      : isSup ? "1.5px solid #ff6b6b"
+                      : isMP ? "1.5px solid #f5c542" : "none",
+                    boxShadow: (isRes||isSup||isMP) && !isCur ? `0 0 10px ${badge.c}55` : "none",
                   }}>
                     <span style={S.oiLabel}>{kFmt}</span>
                   </div>
@@ -274,6 +339,12 @@ const S = {
   dot: { width: 8, height: 8, borderRadius: "50%", display: "inline-block" },
 
   capture: { background: "#080b12", padding: 4, borderRadius: 8 },
+  analytics: { display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 6, marginBottom: 12 },
+  aCell: { background: "#0d1320", border: "1px solid #1a2230", borderRadius: 10, padding: "8px 4px", textAlign: "center" },
+  aLabel: { fontSize: 10, color: "#7c8aa0", marginBottom: 2 },
+  aVal: { fontSize: 17, fontWeight: 800, lineHeight: 1.1 },
+  aHint: { fontSize: 9, color: "#5c6a7e", marginTop: 2 },
+  badge: { position: "absolute", left: 0, top: "50%", transform: "translateY(-50%)", zIndex: 3, fontSize: 9, fontWeight: 800, color: "#000", padding: "1px 6px", borderRadius: 4, whiteSpace: "nowrap" },
   topBar: { display: "flex", alignItems: "center", gap: 10, marginBottom: 14 },
   plus: { width: 40, height: 34, borderRadius: 9, background: "#0f1420", border: "1px solid #1e2635", color: "#e6edf3", fontSize: 20, cursor: "pointer" },
   toggle: { display: "flex", alignItems: "center", gap: 6, padding: "7px 16px", borderRadius: 20, background: "#0f1420", border: "1px solid #1e2635", color: "#c8d2e0", fontSize: 14, fontWeight: 700, cursor: "pointer" },
