@@ -6,6 +6,11 @@ CONFIG = {
     "_SPX": 0.006,
     "_RUT": 0.008,
     "QQQ":  0.015,
+    "SPY":  0.015,
+    "GLD":  0.020,
+    "AAPL": 0.040,
+    "NVDA": 0.050,
+    "TSLA": 0.060,
 }
 BASE_URL = "https://cdn.cboe.com/api/global/delayed_quotes/options/{}.json"
 
