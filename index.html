@@ -146,6 +146,22 @@ function ICMRMap() {
   }, [data, spot]);
 
   const fmtK = (n) => n >= 1000 ? Math.round(n / 1000) + "K" : String(n);
+  const [detail, setDetail] = useState(null); // الصف المعروض تفاصيله
+
+  // موضع خط السعر الدقيق بين الصفوف (px من أعلى السلّم)
+  const ROW_H = 52;
+  const priceTop = useMemo(() => {
+    const ks = rows.map((r) => r.strike);
+    for (let i = 0; i < ks.length - 1; i++) {
+      const hi = ks[i], lo = ks[i + 1];
+      if (lo <= spot && spot <= hi) {
+        const frac = (hi - spot) / (hi - lo);
+        return (i + 0.5 + frac) * ROW_H;
+      }
+    }
+    if (ks.length && spot > ks[0]) return 0.5 * ROW_H;
+    return (ks.length - 0.5) * ROW_H;
+  }, [rows, spot]);
 
   // تحرير يدوي (يعدّل الـ callOi/putOi في المصدر)
   const setRow = (strike, key, val) =>
@@ -256,31 +272,38 @@ function ICMRMap() {
             <div style={S.wmSub}>Inad's Chrono Maker Range</div>
           </div>
           <div style={S.axis} />
+          <div style={{ ...S.priceLineAbs, top: priceTop }}>
+            <span style={S.priceLineTag}>{spot.toLocaleString("en-US",{minimumFractionDigits:1})}</span>
+          </div>
 
           {rows.map((r) => {
-            const isCur = r.strike === currentStrike;
-            const w = Math.max(6, (r.oi / maxOi) * 100);
-            const kFmt = r.oi >= 1000 ? Math.round(r.oi / 1000) + "K" : r.oi + (r.oi < 1000 && r.oi > 0 && FEED ? "" : "K");
+            const frac = r.oi / maxOi;
+            const w = Math.max(6, frac * 100);
+            const kFmt = fmtK(r.oi);
             const isRes = analytics.resistance && r.strike === analytics.resistance.strike;
             const isSup = analytics.support && r.strike === analytics.support.strike;
             const isMP = analytics.maxPain && r.strike === analytics.maxPain;
-            const badge = isRes ? { t: "مقاومة", c: "#4ade80" } : isSup ? { t: "دعم", c: "#ff6b6b" } : isMP ? { t: "Max Pain", c: "#f5c542" } : null;
+            // شارة مدمجة لو تصادف أكثر من مؤشر
+            const tags = [];
+            if (isRes) tags.push("مقاومة");
+            if (isSup) tags.push("دعم");
+            if (isMP) tags.push("MP");
+            const markC = isRes ? "#4ade80" : isSup ? "#ff6b6b" : isMP ? "#f5c542" : null;
+            // شدّة اللون حسب حجم الجدار (0.35 → 1)
+            const intensity = 0.35 + frac * 0.65;
+            const barBg = isCall
+              ? `linear-gradient(90deg, rgba(18,64,43,${intensity}), rgba(61,220,132,${intensity}))`
+              : `linear-gradient(90deg, rgba(74,22,32,${intensity}), rgba(255,91,91,${intensity}))`;
             return (
-              <div key={r.strike} style={S.row} onClick={() => !editing && setSpot(r.strike)}>
-                <div style={{ ...S.strikeTag, ...(isCur ? S.strikeTagCur : {}) }}>{r.strike}</div>
+              <div key={r.strike} style={S.row}
+                onClick={() => editing ? null : setDetail(detail === r.strike ? null : r.strike)}>
+                <div style={S.strikeTag}>{r.strike}</div>
                 <div style={S.barZone}>
-                  {isCur && <div style={S.spotLine} />}
-                  {badge && <span style={{ ...S.badge, background: badge.c }}>{badge.t}</span>}
+                  {markC && <span style={{ ...S.badge, background: markC }}>{tags.join(" · ")}</span>}
                   <div style={{
-                    ...S.bar, width: `${w}%`,
-                    background: isCur ? "linear-gradient(90deg,#5a1620,#b0303f)"
-                      : isCall ? "linear-gradient(90deg,#12402b,#3ddc84)"
-                      : "linear-gradient(90deg,#4a1620,#ff5b5b)",
-                    border: isCur ? "1px solid #ff5b5b"
-                      : isRes ? "1.5px solid #4ade80"
-                      : isSup ? "1.5px solid #ff6b6b"
-                      : isMP ? "1.5px solid #f5c542" : "none",
-                    boxShadow: (isRes||isSup||isMP) && !isCur ? `0 0 10px ${badge.c}55` : "none",
+                    ...S.bar, width: `${w}%`, background: barBg,
+                    border: markC ? `1.5px solid ${markC}` : "none",
+                    boxShadow: markC ? `0 0 10px ${markC}55` : "none",
                   }}>
                     <span style={S.oiLabel}>{kFmt}</span>
                   </div>
@@ -301,6 +324,27 @@ function ICMRMap() {
             );
           })}
         </div>
+
+        {detail != null && (() => {
+          const d = data.rows.find((r) => r.strike === detail);
+          if (!d) return null;
+          const coi = d.callOi ?? d.oi ?? 0, poi = d.putOi ?? 0;
+          const net = coi - poi;
+          return (
+            <div style={S.detailCard} onClick={() => setDetail(null)}>
+              <div style={S.dTitle}>سترايك {detail}</div>
+              <div style={S.dGrid}>
+                <div><div style={S.dLab}>كول OI</div><div style={{color:"#4ade80",fontWeight:800}}>{fmtK(coi)}</div></div>
+                <div><div style={S.dLab}>بوت OI</div><div style={{color:"#ff6b6b",fontWeight:800}}>{fmtK(poi)}</div></div>
+                <div><div style={S.dLab}>صافي</div><div style={{color:net>=0?"#4ade80":"#ff6b6b",fontWeight:800}}>{net>=0?"+":""}{fmtK(net)}</div></div>
+                <div><div style={S.dLab}>سعر كول</div><div style={{color:"#4ade80",fontWeight:800}}>{(d.call||0).toFixed(2)}</div></div>
+                <div><div style={S.dLab}>سعر بوت</div><div style={{color:"#ff6b6b",fontWeight:800}}>{(d.put||0).toFixed(2)}</div></div>
+                <div><div style={S.dLab}>المسيطر</div><div style={{color:net>=0?"#4ade80":"#ff6b6b",fontWeight:800}}>{net>=0?"كول":"بوت"}</div></div>
+              </div>
+              <div style={S.dClose}>اضغط للإغلاق</div>
+            </div>
+          );
+        })()}
 
         <div style={S.spotBox} dir="rtl">
           <span style={S.spotLabel}>سعر {symbol} الآن</span>
@@ -345,6 +389,13 @@ const S = {
   aVal: { fontSize: 17, fontWeight: 800, lineHeight: 1.1 },
   aHint: { fontSize: 9, color: "#5c6a7e", marginTop: 2 },
   badge: { position: "absolute", left: 0, top: "50%", transform: "translateY(-50%)", zIndex: 3, fontSize: 9, fontWeight: 800, color: "#000", padding: "1px 6px", borderRadius: 4, whiteSpace: "nowrap" },
+  priceLineAbs: { position: "absolute", left: 58, right: 0, height: 0, borderTop: "2px dashed #cbd5e1", zIndex: 4, pointerEvents: "none" },
+  priceLineTag: { position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)", background: "#fff", color: "#111", fontSize: 12, fontWeight: 800, padding: "2px 7px", borderRadius: 5 },
+  detailCard: { background: "#0d1320", border: "1px solid #26314a", borderRadius: 12, padding: "12px 14px", margin: "12px 0", cursor: "pointer" },
+  dTitle: { fontSize: 15, fontWeight: 800, color: "#f5c542", textAlign: "center", marginBottom: 10 },
+  dGrid: { display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10, textAlign: "center" },
+  dLab: { fontSize: 10, color: "#7c8aa0", marginBottom: 2 },
+  dClose: { textAlign: "center", fontSize: 10, color: "#5c6a7e", marginTop: 10 },
   topBar: { display: "flex", alignItems: "center", gap: 10, marginBottom: 14 },
   plus: { width: 40, height: 34, borderRadius: 9, background: "#0f1420", border: "1px solid #1e2635", color: "#e6edf3", fontSize: 20, cursor: "pointer" },
   toggle: { display: "flex", alignItems: "center", gap: 6, padding: "7px 16px", borderRadius: 20, background: "#0f1420", border: "1px solid #1e2635", color: "#c8d2e0", fontSize: 14, fontWeight: 700, cursor: "pointer" },
