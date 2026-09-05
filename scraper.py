@@ -1,7 +1,6 @@
-import json, urllib.request, sys, re, datetime as dt
+import json, urllib.request, sys, re, datetime as dt, os
 from collections import defaultdict
 
-# رمز: نسبة النطاق (±%). المؤشرات أضيق، الصناديق أوسع. أضف/احذف بحرّية.
 CONFIG = {
     "_SPX": 0.006,
     "_RUT": 0.008,
@@ -42,7 +41,6 @@ for sym, pct in CONFIG.items():
         print(f"skip {sym}: no data", file=sys.stderr); continue
 
     lo, hi = spot*(1-pct), spot*(1+pct)
-
     exps = sorted({p[0] for o in opts if (p := parse(o["option"]))})
     near = next((e for e in exps if e >= today), exps[0] if exps else None)
 
@@ -69,4 +67,47 @@ for sym, pct in CONFIG.items():
     print(f"wrote {clean}: {len(rows)} strikes | spot={round(spot,1)} | maxCallOI={maxc}")
 
 open("data/index.json","w").write(json.dumps({"symbols":list(index.keys()),"detail":index}, indent=2))
-print(f"index: {list(index.keys())}")
+
+# ── تنبيهات تيليجرام ──
+TG_TOKEN = os.environ.get("TG_TOKEN")
+TG_CHAT = os.environ.get("TG_CHAT")
+ALERT_PCT = 5.0  # اختبار: 5%. أرجعه لـ 0.15 بعد التأكّد
+
+def send_tg(text):
+    if not TG_TOKEN or not TG_CHAT: return
+    try:
+        u = f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage"
+        d = json.dumps({"chat_id": TG_CHAT, "text": text}).encode()
+        req = urllib.request.Request(u, data=d, headers={"Content-Type":"application/json"})
+        urllib.request.urlopen(req, timeout=15)
+    except Exception as e:
+        print(f"tg fail: {e}", file=sys.stderr)
+
+alerts = []
+for clean in index:
+    try:
+        d = json.load(open(f"data/{clean}.json"))
+    except: continue
+    sp, rws = d["spot"], d["rows"]
+    above = [r for r in rws if r["strike"] > sp]
+    below = [r for r in rws if r["strike"] < sp]
+    res = max(above, key=lambda r: r.get("callOi",0)) if above else None
+    sup = max(below, key=lambda r: r.get("putOi",0)) if below else None
+    for wall, kind in [(res,"مقاومة"), (sup,"دعم")]:
+        if not wall: continue
+        dist = abs(wall["strike"] - sp) / sp * 100
+        if dist <= ALERT_PCT:
+            alerts.append(f"⚡ {clean}: {sp} قرب {kind} {wall['strike']} (بُعد {dist:.2f}%)")
+
+statefile = "data/.alert_state.json"
+prev = {}
+try: prev = json.load(open(statefile))
+except: pass
+new_state = {}
+for a in alerts:
+    key = a.split(" (")[0]
+    new_state[key] = True
+    if key not in prev:
+        send_tg(a)
+open(statefile, "w").write(json.dumps(new_state))
+print(f"alerts: {len(alerts)} active | index: {list(index.keys())}")
