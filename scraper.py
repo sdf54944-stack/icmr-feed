@@ -71,7 +71,7 @@ open("data/index.json","w").write(json.dumps({"symbols":list(index.keys()),"deta
 # ── تنبيهات تيليجرام ──
 TG_TOKEN = os.environ.get("TG_TOKEN")
 TG_CHAT = os.environ.get("TG_CHAT")
-ALERT_PCT = 5.0  # اختبار: 5%. أرجعه لـ 0.15 بعد التأكّد
+ALERT_PCT = 0.20  # اختبار: 5%. أرجعه لـ 0.15 بعد التأكّد
 
 def send_tg(text):
     if not TG_TOKEN or not TG_CHAT: return
