@@ -1,8 +1,15 @@
 {
   "symbol": "TSLA",
-  "spot": 352.9,
+  "spot": 355.4,
   "exp": "2026-09-09 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
+    {
+      "strike": 375.0,
+      "callOi": 29011.0,
+      "putOi": 14969.0,
+      "call": 0.71,
+      "put": 21.8
+    },
     {
       "strike": 372.5,
       "callOi": 5925.0,
@@ -114,13 +121,6 @@
       "putOi": 20637.0,
       "call": 19.52,
       "put": 0.47
-    },
-    {
-      "strike": 332.5,
-      "callOi": 198.0,
-      "putOi": 4438.0,
-      "call": 21.88,
-      "put": 0.34
     }
   ],
   "availableExp": [
