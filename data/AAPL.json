@@ -1,84 +1,77 @@
 {
   "symbol": "AAPL",
-  "spot": 317.4,
+  "spot": 314.7,
   "exp": "2026-09-09 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
-    {
-      "strike": 330.0,
-      "callOi": 174375.0,
-      "putOi": 25757.0,
-      "call": 0.21,
-      "put": 12.85
-    },
-    {
-      "strike": 327.5,
-      "callOi": 12344.0,
-      "putOi": 1755.0,
-      "call": 0.35,
-      "put": 10.7
-    },
     {
       "strike": 325.0,
       "callOi": 93560.0,
       "putOi": 25995.0,
-      "call": 0.59,
-      "put": 8.12
+      "call": 0.29,
+      "put": 10.65
     },
     {
       "strike": 322.5,
       "callOi": 14564.0,
       "putOi": 3014.0,
-      "call": 0.99,
-      "put": 6.05
+      "call": 0.52,
+      "put": 8.43
     },
     {
       "strike": 320.0,
       "callOi": 177086.0,
       "putOi": 53755.0,
-      "call": 1.67,
-      "put": 4.2
+      "call": 0.89,
+      "put": 6.15
     },
     {
       "strike": 317.5,
       "callOi": 8557.0,
       "putOi": 6552.0,
-      "call": 2.7,
-      "put": 2.75
+      "call": 1.52,
+      "put": 4.28
     },
     {
       "strike": 315.0,
       "callOi": 58129.0,
       "putOi": 47520.0,
-      "call": 4.12,
-      "put": 1.67
+      "call": 2.52,
+      "put": 2.8
     },
     {
       "strike": 312.5,
       "callOi": 1572.0,
       "putOi": 8470.0,
-      "call": 5.9,
-      "put": 0.95
+      "call": 3.95,
+      "put": 1.71
     },
     {
       "strike": 310.0,
       "callOi": 114104.0,
       "putOi": 107953.0,
-      "call": 8.02,
-      "put": 0.52
+      "call": 5.72,
+      "put": 0.98
     },
     {
       "strike": 307.5,
       "callOi": 716.0,
       "putOi": 9888.0,
-      "call": 10.25,
-      "put": 0.28
+      "call": 7.78,
+      "put": 0.56
     },
     {
       "strike": 305.0,
       "callOi": 40726.0,
       "putOi": 53071.0,
-      "call": 12.47,
-      "put": 0.15
+      "call": 9.88,
+      "put": 0.32
+    },
+    {
+      "strike": 302.5,
+      "callOi": 281.0,
+      "putOi": 5505.0,
+      "call": 12.38,
+      "put": 0.17
     }
   ],
   "availableExp": [
