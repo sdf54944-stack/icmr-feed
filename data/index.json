@@ -23,7 +23,7 @@
       "strikes": 21
     },
     "SPY": {
-      "spot": 764.0,
+      "spot": 764.1,
       "strikes": 23
     },
     "GLD": {
@@ -31,7 +31,7 @@
       "strikes": 16
     },
     "AAPL": {
-      "spot": 332.5,
+      "spot": 332.4,
       "strikes": 11
     },
     "NVDA": {
