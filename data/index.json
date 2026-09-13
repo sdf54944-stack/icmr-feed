@@ -23,23 +23,23 @@
       "strikes": 21
     },
     "SPY": {
-      "spot": 764.1,
+      "spot": 764.3,
       "strikes": 23
     },
     "GLD": {
-      "spot": 398.7,
+      "spot": 398.8,
       "strikes": 16
     },
     "AAPL": {
-      "spot": 332.4,
+      "spot": 332.6,
       "strikes": 11
     },
     "NVDA": {
-      "spot": 218.4,
+      "spot": 218.3,
       "strikes": 23
     },
     "TSLA": {
-      "spot": 364.8,
+      "spot": 365.2,
       "strikes": 17
     }
   }
