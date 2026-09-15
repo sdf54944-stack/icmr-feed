@@ -19,7 +19,7 @@
       "strikes": 9
     },
     "QQQ": {
-      "spot": 705.2,
+      "spot": 704.9,
       "strikes": 21
     },
     "SPY": {
@@ -39,8 +39,8 @@
       "strikes": 19
     },
     "TSLA": {
-      "spot": 356.4,
-      "strikes": 18
+      "spot": 355.9,
+      "strikes": 17
     }
   }
 }
