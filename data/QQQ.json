@@ -1,160 +1,153 @@
 {
   "symbol": "QQQ",
-  "spot": 708.6,
+  "spot": 707.0,
   "exp": "2026-09-15 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
-    {
-      "strike": 719.0,
-      "callOi": 17768.0,
-      "putOi": 6951.0,
-      "call": 0.03,
-      "put": 10.31
-    },
-    {
-      "strike": 718.0,
-      "callOi": 15307.0,
-      "putOi": 20995.0,
-      "call": 0.03,
-      "put": 9.32
-    },
     {
       "strike": 717.0,
       "callOi": 16025.0,
       "putOi": 10024.0,
-      "call": 0.04,
-      "put": 8.32
+      "call": 0.03,
+      "put": 9.89
     },
     {
       "strike": 716.0,
       "callOi": 12308.0,
       "putOi": 18960.0,
       "call": 0.04,
-      "put": 7.42
+      "put": 8.89
     },
     {
       "strike": 715.0,
       "callOi": 92113.0,
       "putOi": 111052.0,
-      "call": 0.07,
-      "put": 6.45
+      "call": 0.04,
+      "put": 7.94
     },
     {
       "strike": 714.0,
       "callOi": 10358.0,
       "putOi": 10009.0,
-      "call": 0.1,
-      "put": 5.39
+      "call": 0.07,
+      "put": 6.91
     },
     {
       "strike": 713.0,
       "callOi": 11968.0,
       "putOi": 14098.0,
-      "call": 0.15,
-      "put": 4.51
+      "call": 0.1,
+      "put": 5.96
     },
     {
       "strike": 712.0,
       "callOi": 20319.0,
       "putOi": 27101.0,
-      "call": 0.27,
-      "put": 3.65
+      "call": 0.15,
+      "put": 5.08
     },
     {
       "strike": 711.0,
       "callOi": 12627.0,
       "putOi": 13096.0,
-      "call": 0.45,
-      "put": 2.85
+      "call": 0.23,
+      "put": 4.13
     },
     {
       "strike": 710.0,
       "callOi": 88839.0,
       "putOi": 140738.0,
-      "call": 0.73,
-      "put": 2.15
+      "call": 0.36,
+      "put": 3.28
     },
     {
       "strike": 709.0,
       "callOi": 8206.0,
       "putOi": 20960.0,
-      "call": 1.17,
-      "put": 1.58
+      "call": 0.59,
+      "put": 2.53
     },
     {
       "strike": 708.0,
       "callOi": 8584.0,
       "putOi": 15882.0,
-      "call": 1.71,
-      "put": 1.12
+      "call": 0.94,
+      "put": 1.88
     },
     {
       "strike": 707.0,
       "callOi": 7608.0,
       "putOi": 13725.0,
-      "call": 2.38,
-      "put": 0.79
+      "call": 1.42,
+      "put": 1.35
     },
     {
       "strike": 706.0,
       "callOi": 6094.0,
       "putOi": 11497.0,
-      "call": 3.15,
-      "put": 0.55
+      "call": 2.02,
+      "put": 0.95
     },
     {
       "strike": 705.0,
       "callOi": 43149.0,
       "putOi": 127912.0,
-      "call": 4.0,
-      "put": 0.39
+      "call": 2.74,
+      "put": 0.67
     },
     {
       "strike": 704.0,
       "callOi": 5393.0,
       "putOi": 13467.0,
-      "call": 4.93,
-      "put": 0.28
+      "call": 3.52,
+      "put": 0.46
     },
     {
       "strike": 703.0,
       "callOi": 3284.0,
       "putOi": 10365.0,
-      "call": 5.89,
-      "put": 0.2
+      "call": 4.39,
+      "put": 0.32
     },
     {
       "strike": 702.0,
       "callOi": 2340.0,
       "putOi": 13923.0,
-      "call": 6.85,
-      "put": 0.15
+      "call": 5.3,
+      "put": 0.23
     },
     {
       "strike": 701.0,
       "callOi": 1759.0,
       "putOi": 9403.0,
-      "call": 7.82,
-      "put": 0.11
+      "call": 6.29,
+      "put": 0.15
     },
     {
       "strike": 700.0,
       "callOi": 131289.0,
       "putOi": 399970.0,
-      "call": 8.8,
-      "put": 0.1
+      "call": 7.27,
+      "put": 0.12
     },
     {
       "strike": 699.0,
       "callOi": 952.0,
       "putOi": 9225.0,
-      "call": 9.79,
-      "put": 0.08
+      "call": 8.23,
+      "put": 0.1
     },
     {
       "strike": 698.0,
       "callOi": 2030.0,
       "putOi": 9465.0,
-      "call": 10.77,
+      "call": 9.21,
+      "put": 0.08
+    },
+    {
+      "strike": 697.0,
+      "callOi": 1166.0,
+      "putOi": 7245.0,
+      "call": 10.2,
       "put": 0.07
     }
   ],
