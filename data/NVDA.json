@@ -1,133 +1,140 @@
 {
   "symbol": "NVDA",
-  "spot": 212.3,
-  "exp": "2026-09-14 (OI \u0645\u062c\u0645\u0651\u0639)",
+  "spot": 212.6,
+  "exp": "2026-09-16 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
     {
+      "strike": 223.0,
+      "callOi": 2073.0,
+      "putOi": 545.0,
+      "call": 0.0,
+      "put": 0.0
+    },
+    {
       "strike": 222.5,
-      "callOi": 61403.0,
-      "putOi": 7098.0,
-      "call": 0.01,
-      "put": 11.6
+      "callOi": 70511.0,
+      "putOi": 7288.0,
+      "call": 0.1,
+      "put": 12.02
     },
     {
       "strike": 222.0,
-      "callOi": 2648.0,
-      "putOi": 603.0,
+      "callOi": 2666.0,
+      "putOi": 613.0,
       "call": 0.0,
       "put": 0.0
     },
     {
       "strike": 221.0,
-      "callOi": 2323.0,
-      "putOi": 1644.0,
+      "callOi": 2337.0,
+      "putOi": 1645.0,
       "call": 0.0,
       "put": 0.0
     },
     {
       "strike": 220.0,
-      "callOi": 376104.0,
-      "putOi": 205626.0,
-      "call": 0.01,
-      "put": 9.1
+      "callOi": 424126.0,
+      "putOi": 203022.0,
+      "call": 0.18,
+      "put": 9.18
     },
     {
       "strike": 219.0,
-      "callOi": 1858.0,
-      "putOi": 1300.0,
+      "callOi": 1874.0,
+      "putOi": 1298.0,
       "call": 0.0,
       "put": 0.0
     },
     {
       "strike": 218.0,
-      "callOi": 2436.0,
-      "putOi": 936.0,
+      "callOi": 2662.0,
+      "putOi": 909.0,
       "call": 0.0,
       "put": 0.0
     },
     {
       "strike": 217.5,
-      "callOi": 10304.0,
-      "putOi": 16980.0,
-      "call": 0.01,
-      "put": 6.6
+      "callOi": 23677.0,
+      "putOi": 17670.0,
+      "call": 0.4,
+      "put": 7.3
     },
     {
       "strike": 217.0,
-      "callOi": 1090.0,
-      "putOi": 2995.0,
+      "callOi": 1112.0,
+      "putOi": 3000.0,
       "call": 0.0,
       "put": 0.0
     },
     {
       "strike": 216.0,
-      "callOi": 2653.0,
-      "putOi": 1131.0,
+      "callOi": 2681.0,
+      "putOi": 1147.0,
       "call": 0.0,
       "put": 0.0
     },
     {
       "strike": 215.0,
-      "callOi": 126247.0,
-      "putOi": 119245.0,
-      "call": 0.01,
-      "put": 4.1
+      "callOi": 179521.0,
+      "putOi": 121998.0,
+      "call": 0.86,
+      "put": 5.2
     },
     {
       "strike": 214.0,
-      "callOi": 2741.0,
-      "putOi": 2453.0,
+      "callOi": 2772.0,
+      "putOi": 2512.0,
       "call": 0.0,
       "put": 0.0
     },
     {
       "strike": 213.0,
-      "callOi": 2551.0,
-      "putOi": 1517.0,
+      "callOi": 2614.0,
+      "putOi": 1555.0,
       "call": 0.0,
       "put": 0.0
     },
     {
       "strike": 212.5,
-      "callOi": 2458.0,
-      "putOi": 23649.0,
-      "call": 0.01,
-      "put": 1.59
+      "callOi": 22398.0,
+      "putOi": 27209.0,
+      "call": 1.67,
+      "put": 3.25
     },
     {
       "strike": 212.0,
-      "callOi": 2282.0,
-      "putOi": 1963.0,
+      "callOi": 2446.0,
+      "putOi": 2292.0,
       "call": 0.0,
       "put": 0.0
     },
     {
       "strike": 210.0,
-      "callOi": 299435.0,
-      "putOi": 209471.0,
-      "call": 0.92,
-      "put": 0.01
+      "callOi": 318988.0,
+      "putOi": 233138.0,
+      "call": 2.92,
+      "put": 1.96
     },
     {
       "strike": 207.5,
-      "callOi": 1076.0,
-      "putOi": 14927.0,
-      "call": 3.4,
-      "put": 0.01
+      "callOi": 3134.0,
+      "putOi": 21799.0,
+      "call": 4.6,
+      "put": 1.13
     },
     {
       "strike": 205.0,
-      "callOi": 79772.0,
-      "putOi": 156081.0,
-      "call": 5.9,
-      "put": 0.01
+      "callOi": 81520.0,
+      "putOi": 170490.0,
+      "call": 6.57,
+      "put": 0.62
     },
     {
       "strike": 202.5,
-      "callOi": 684.0,
-      "putOi": 11608.0,
-      "call": 8.4,
-      "put": 0.01
+      "callOi": 1722.0,
+      "putOi": 30169.0,
+      "call": 8.25,
+      "put": 0.34
     }
   ],
   "availableExp": [
@@ -138,10 +145,10 @@
     "2026-09-23",
     "2026-09-25",
     "2026-09-28",
+    "2026-09-30",
     "2026-10-02",
     "2026-10-09",
     "2026-10-16",
-    "2026-10-23",
-    "2026-10-30"
+    "2026-10-23"
   ]
 }
