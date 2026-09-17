@@ -1,6 +1,6 @@
 {
   "symbol": "GLD",
-  "spot": 399.5,
+  "spot": 399.7,
   "exp": "2026-09-17 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
     {
@@ -21,15 +21,15 @@
       "strike": 405.0,
       "callOi": 34214.0,
       "putOi": 21982.0,
-      "call": 0.03,
-      "put": 5.4
+      "call": 0.01,
+      "put": 5.38
     },
     {
       "strike": 404.0,
       "callOi": 5468.0,
       "putOi": 2956.0,
       "call": 0.01,
-      "put": 4.4
+      "put": 4.38
     },
     {
       "strike": 403.0,
@@ -43,62 +43,62 @@
       "callOi": 4652.0,
       "putOi": 5783.0,
       "call": 0.04,
-      "put": 2.44
+      "put": 2.38
     },
     {
       "strike": 401.0,
       "callOi": 3423.0,
       "putOi": 2135.0,
       "call": 0.08,
-      "put": 1.61
+      "put": 1.41
     },
     {
       "strike": 400.0,
       "callOi": 130254.0,
       "putOi": 116024.0,
-      "call": 0.26,
-      "put": 0.78
+      "call": 0.3,
+      "put": 0.64
     },
     {
       "strike": 399.0,
       "callOi": 4117.0,
       "putOi": 2570.0,
-      "call": 0.75,
-      "put": 0.28
+      "call": 0.86,
+      "put": 0.21
     },
     {
       "strike": 398.0,
       "callOi": 1914.0,
       "putOi": 3589.0,
-      "call": 1.54,
+      "call": 1.71,
       "put": 0.07
     },
     {
       "strike": 397.0,
       "callOi": 2952.0,
       "putOi": 3589.0,
-      "call": 2.63,
-      "put": 0.02
+      "call": 2.67,
+      "put": 0.03
     },
     {
       "strike": 396.0,
       "callOi": 1706.0,
       "putOi": 2801.0,
-      "call": 3.62,
+      "call": 3.67,
       "put": 0.01
     },
     {
       "strike": 395.0,
       "callOi": 26220.0,
       "putOi": 30710.0,
-      "call": 4.6,
+      "call": 4.67,
       "put": 0.01
     },
     {
       "strike": 394.0,
       "callOi": 1769.0,
       "putOi": 2885.0,
-      "call": 5.62,
+      "call": 5.67,
       "put": 0.01
     },
     {
@@ -112,7 +112,7 @@
       "strike": 392.0,
       "callOi": 2281.0,
       "putOi": 4758.0,
-      "call": 7.62,
+      "call": 7.57,
       "put": 0.01
     }
   ],
