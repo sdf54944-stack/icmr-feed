@@ -11,23 +11,23 @@
   ],
   "detail": {
     "SPX": {
-      "spot": 7624.1,
+      "spot": 7623.6,
       "strikes": 18
     },
     "RUT": {
-      "spot": 2851.8,
+      "spot": 2852.1,
       "strikes": 9
     },
     "QQQ": {
-      "spot": 717.1,
+      "spot": 716.9,
       "strikes": 21
     },
     "SPY": {
-      "spot": 759.4,
+      "spot": 759.3,
       "strikes": 23
     },
     "GLD": {
-      "spot": 401.9,
+      "spot": 402.1,
       "strikes": 16
     },
     "AAPL": {
