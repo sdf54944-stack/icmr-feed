@@ -156,13 +156,6 @@
       "putOi": 293240.0,
       "call": 12.24,
       "put": 0.23
-    },
-    {
-      "strike": 749.0,
-      "callOi": 2679.0,
-      "putOi": 28110.0,
-      "call": 12.85,
-      "put": 0.2
     }
   ],
   "availableExp": [
