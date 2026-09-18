@@ -19,11 +19,11 @@
       "strikes": 9
     },
     "QQQ": {
-      "spot": 717.9,
+      "spot": 718.2,
       "strikes": 21
     },
     "SPY": {
-      "spot": 760.4,
+      "spot": 760.6,
       "strikes": 22
     },
     "GLD": {
@@ -31,15 +31,15 @@
       "strikes": 16
     },
     "AAPL": {
-      "spot": 337.0,
+      "spot": 337.5,
       "strikes": 11
     },
     "NVDA": {
-      "spot": 219.1,
+      "spot": 219.3,
       "strikes": 23
     },
     "TSLA": {
-      "spot": 367.3,
+      "spot": 367.8,
       "strikes": 17
     }
   }
