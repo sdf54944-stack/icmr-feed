@@ -1,15 +1,8 @@
 {
   "symbol": "SPY",
-  "spot": 766.5,
+  "spot": 766.4,
   "exp": "2026-09-21 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
-    {
-      "strike": 778.0,
-      "callOi": 17333.0,
-      "putOi": 2284.0,
-      "call": 0.01,
-      "put": 15.84
-    },
     {
       "strike": 777.0,
       "callOi": 20415.0,
@@ -163,6 +156,13 @@
       "putOi": 17385.0,
       "call": 7.28,
       "put": 0.38
+    },
+    {
+      "strike": 755.0,
+      "callOi": 42595.0,
+      "putOi": 127986.0,
+      "call": 8.21,
+      "put": 0.3
     }
   ],
   "availableExp": [
