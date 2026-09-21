@@ -31,15 +31,15 @@
       "strikes": 16
     },
     "AAPL": {
-      "spot": 338.8,
+      "spot": 338.7,
       "strikes": 10
     },
     "NVDA": {
-      "spot": 227.1,
+      "spot": 227.0,
       "strikes": 20
     },
     "TSLA": {
-      "spot": 375.0,
+      "spot": 374.9,
       "strikes": 18
     }
   }
