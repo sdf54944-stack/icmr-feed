@@ -19,15 +19,15 @@
       "strikes": 9
     },
     "QQQ": {
-      "spot": 746.7,
-      "strikes": 22
+      "spot": 746.8,
+      "strikes": 23
     },
     "SPY": {
-      "spot": 773.2,
+      "spot": 773.1,
       "strikes": 23
     },
     "GLD": {
-      "spot": 399.4,
+      "spot": 399.7,
       "strikes": 16
     },
     "AAPL": {
