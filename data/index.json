@@ -6,8 +6,7 @@
     "SPY",
     "GLD",
     "AAPL",
-    "NVDA",
-    "TSLA"
+    "NVDA"
   ],
   "detail": {
     "SPX": {
@@ -36,10 +35,6 @@
     },
     "NVDA": {
       "spot": 228.6,
-      "strikes": 18
-    },
-    "TSLA": {
-      "spot": 379.1,
       "strikes": 18
     }
   }
