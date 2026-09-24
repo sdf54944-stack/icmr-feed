@@ -1,84 +1,84 @@
 {
   "symbol": "AAPL",
   "spot": 339.8,
-  "exp": "2026-09-23 (OI \u0645\u062c\u0645\u0651\u0639)",
+  "exp": "2026-09-25 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
     {
       "strike": 352.5,
       "callOi": 11771.0,
       "putOi": 79.0,
-      "call": 0.03,
+      "call": 0.21,
       "put": 12.75
     },
     {
       "strike": 350.0,
       "callOi": 214330.0,
       "putOi": 9699.0,
-      "call": 0.04,
-      "put": 10.52
+      "call": 0.41,
+      "put": 10.48
     },
     {
       "strike": 347.5,
       "callOi": 10668.0,
       "putOi": 2596.0,
-      "call": 0.12,
-      "put": 7.95
+      "call": 0.72,
+      "put": 8.43
     },
     {
       "strike": 345.0,
       "callOi": 81726.0,
       "putOi": 6434.0,
-      "call": 0.3,
-      "put": 5.47
+      "call": 1.22,
+      "put": 6.35
     },
     {
       "strike": 342.5,
       "callOi": 22709.0,
       "putOi": 1624.0,
-      "call": 0.77,
-      "put": 3.48
+      "call": 2.01,
+      "put": 4.58
     },
     {
       "strike": 340.0,
       "callOi": 212398.0,
       "putOi": 34332.0,
-      "call": 1.71,
-      "put": 1.91
+      "call": 3.08,
+      "put": 3.15
     },
     {
       "strike": 337.5,
       "callOi": 18213.0,
       "putOi": 5123.0,
-      "call": 3.25,
-      "put": 0.91
+      "call": 4.6,
+      "put": 2.1
     },
     {
       "strike": 335.0,
       "callOi": 63516.0,
       "putOi": 26458.0,
-      "call": 5.18,
-      "put": 0.4
+      "call": 6.22,
+      "put": 1.31
     },
     {
       "strike": 332.5,
       "callOi": 4630.0,
       "putOi": 7011.0,
-      "call": 7.2,
-      "put": 0.16
+      "call": 8.18,
+      "put": 0.81
     },
     {
       "strike": 330.0,
       "callOi": 109715.0,
       "putOi": 58751.0,
-      "call": 9.9,
-      "put": 0.08
+      "call": 10.32,
+      "put": 0.52
     },
     {
       "strike": 327.5,
       "callOi": 1836.0,
       "putOi": 11950.0,
-      "call": 12.0,
-      "put": 0.04
+      "call": 12.38,
+      "put": 0.32
     }
   ],
   "availableExp": [
