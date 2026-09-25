@@ -1,84 +1,77 @@
 {
   "symbol": "AAPL",
-  "spot": 335.8,
+  "spot": 336.1,
   "exp": "2026-09-25 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
     {
       "strike": 347.5,
-      "callOi": 15808.0,
-      "putOi": 1736.0,
+      "callOi": 20353.0,
+      "putOi": 859.0,
       "call": 0.01,
       "put": 11.65
     },
     {
       "strike": 345.0,
-      "callOi": 85114.0,
-      "putOi": 8843.0,
+      "callOi": 92775.0,
+      "putOi": 5938.0,
       "call": 0.04,
       "put": 8.98
     },
     {
       "strike": 342.5,
-      "callOi": 20270.0,
-      "putOi": 3604.0,
+      "callOi": 28704.0,
+      "putOi": 3623.0,
       "call": 0.15,
       "put": 6.5
     },
     {
       "strike": 340.0,
-      "callOi": 212248.0,
-      "putOi": 27176.0,
+      "callOi": 217508.0,
+      "putOi": 28481.0,
       "call": 0.43,
       "put": 4.28
     },
     {
       "strike": 337.5,
-      "callOi": 16256.0,
-      "putOi": 4791.0,
+      "callOi": 20297.0,
+      "putOi": 5983.0,
       "call": 1.06,
       "put": 2.56
     },
     {
       "strike": 335.0,
-      "callOi": 61619.0,
-      "putOi": 28064.0,
+      "callOi": 62733.0,
+      "putOi": 29137.0,
       "call": 2.28,
       "put": 1.25
     },
     {
       "strike": 332.5,
-      "callOi": 3557.0,
-      "putOi": 7710.0,
+      "callOi": 3720.0,
+      "putOi": 10693.0,
       "call": 4.08,
       "put": 0.54
     },
     {
       "strike": 330.0,
-      "callOi": 107922.0,
-      "putOi": 67757.0,
+      "callOi": 107528.0,
+      "putOi": 83517.0,
       "call": 6.38,
       "put": 0.21
     },
     {
       "strike": 327.5,
       "callOi": 1795.0,
-      "putOi": 12386.0,
+      "putOi": 13979.0,
       "call": 8.75,
       "put": 0.08
     },
     {
       "strike": 325.0,
-      "callOi": 46587.0,
-      "putOi": 32958.0,
+      "callOi": 46027.0,
+      "putOi": 34149.0,
       "call": 11.32,
       "put": 0.04
-    },
-    {
-      "strike": 322.5,
-      "callOi": 1138.0,
-      "putOi": 5767.0,
-      "call": 13.82,
-      "put": 0.02
     }
   ],
   "availableExp": [
