@@ -11,36 +11,36 @@
   ],
   "detail": {
     "SPX": {
-      "spot": 7693.4,
-      "strikes": 18
+      "spot": 7670.9,
+      "strikes": 19
     },
     "RUT": {
-      "spot": 2821.0,
+      "spot": 2813.0,
       "strikes": 9
     },
     "QQQ": {
-      "spot": 734.9,
+      "spot": 732.7,
       "strikes": 22
     },
     "SPY": {
-      "spot": 766.4,
+      "spot": 764.3,
       "strikes": 23
     },
     "GLD": {
-      "spot": 378.8,
+      "spot": 377.4,
       "strikes": 15
     },
     "AAPL": {
-      "spot": 341.0,
+      "spot": 339.5,
       "strikes": 11
     },
     "NVDA": {
-      "spot": 230.7,
-      "strikes": 16
+      "spot": 229.3,
+      "strikes": 18
     },
     "TSLA": {
-      "spot": 360.9,
-      "strikes": 18
+      "spot": 359.8,
+      "strikes": 17
     }
   }
 }
