@@ -1,161 +1,168 @@
 {
   "symbol": "QQQ",
-  "spot": 742.5,
+  "spot": 744.1,
   "exp": "2026-09-30 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
+    {
+      "strike": 755.0,
+      "callOi": 87598.0,
+      "putOi": 8614.0,
+      "call": 0.04,
+      "put": 10.97
+    },
+    {
+      "strike": 754.0,
+      "callOi": 17080.0,
+      "putOi": 196.0,
+      "call": 0.04,
+      "put": 9.99
+    },
     {
       "strike": 753.0,
       "callOi": 10487.0,
       "putOi": 181.0,
-      "call": 0.07,
-      "put": 10.63
+      "call": 0.08,
+      "put": 9.02
     },
     {
       "strike": 752.0,
       "callOi": 27293.0,
       "putOi": 1515.0,
-      "call": 0.08,
-      "put": 9.65
+      "call": 0.11,
+      "put": 8.04
     },
     {
       "strike": 751.0,
       "callOi": 9881.0,
       "putOi": 871.0,
-      "call": 0.12,
-      "put": 8.69
+      "call": 0.17,
+      "put": 7.1
     },
     {
       "strike": 750.0,
       "callOi": 174422.0,
       "putOi": 81374.0,
-      "call": 0.18,
-      "put": 7.74
+      "call": 0.24,
+      "put": 6.19
     },
     {
       "strike": 749.0,
       "callOi": 9581.0,
       "putOi": 1155.0,
-      "call": 0.26,
-      "put": 6.82
+      "call": 0.36,
+      "put": 5.31
     },
     {
       "strike": 748.0,
       "callOi": 26399.0,
       "putOi": 1957.0,
-      "call": 0.36,
-      "put": 5.94
+      "call": 0.54,
+      "put": 4.46
     },
     {
       "strike": 747.0,
       "callOi": 25800.0,
       "putOi": 4766.0,
-      "call": 0.53,
-      "put": 5.1
+      "call": 0.78,
+      "put": 3.7
     },
     {
       "strike": 746.0,
       "callOi": 15390.0,
       "putOi": 4680.0,
-      "call": 0.74,
-      "put": 4.31
+      "call": 1.08,
+      "put": 3.0
     },
     {
       "strike": 745.0,
       "callOi": 98058.0,
       "putOi": 29760.0,
-      "call": 1.04,
-      "put": 3.59
+      "call": 1.48,
+      "put": 2.4
     },
     {
       "strike": 744.0,
       "callOi": 12679.0,
       "putOi": 5884.0,
-      "call": 1.4,
-      "put": 2.96
+      "call": 1.96,
+      "put": 1.89
     },
     {
       "strike": 743.0,
       "callOi": 10877.0,
       "putOi": 5248.0,
-      "call": 1.85,
-      "put": 2.42
+      "call": 2.55,
+      "put": 1.48
     },
     {
       "strike": 742.0,
       "callOi": 11839.0,
       "putOi": 7767.0,
-      "call": 2.38,
-      "put": 1.94
+      "call": 3.21,
+      "put": 1.13
     },
     {
       "strike": 741.0,
       "callOi": 12162.0,
       "putOi": 7543.0,
-      "call": 2.99,
-      "put": 1.56
+      "call": 3.95,
+      "put": 0.88
     },
     {
       "strike": 740.0,
       "callOi": 169352.0,
       "putOi": 94383.0,
-      "call": 3.67,
-      "put": 1.23
+      "call": 4.74,
+      "put": 0.67
     },
     {
       "strike": 739.0,
       "callOi": 16408.0,
       "putOi": 10388.0,
-      "call": 4.4,
-      "put": 0.97
+      "call": 5.58,
+      "put": 0.52
     },
     {
       "strike": 738.0,
       "callOi": 16748.0,
       "putOi": 13427.0,
-      "call": 5.19,
-      "put": 0.77
+      "call": 6.46,
+      "put": 0.4
     },
     {
       "strike": 737.0,
       "callOi": 9300.0,
       "putOi": 17272.0,
-      "call": 6.03,
-      "put": 0.59
+      "call": 7.37,
+      "put": 0.3
     },
     {
       "strike": 736.0,
       "callOi": 8847.0,
       "putOi": 67714.0,
-      "call": 6.89,
-      "put": 0.46
+      "call": 8.29,
+      "put": 0.23
     },
     {
       "strike": 735.0,
       "callOi": 67184.0,
       "putOi": 76251.0,
-      "call": 7.79,
-      "put": 0.35
+      "call": 9.24,
+      "put": 0.18
     },
     {
       "strike": 734.0,
       "callOi": 8829.0,
       "putOi": 16901.0,
-      "call": 8.71,
-      "put": 0.28
+      "call": 10.2,
+      "put": 0.15
     },
     {
       "strike": 733.0,
       "callOi": 5419.0,
       "putOi": 19090.0,
-      "call": 9.65,
-      "put": 0.21
-    },
-    {
-      "strike": 732.0,
-      "callOi": 10917.0,
-      "putOi": 12626.0,
-      "call": 10.6,
-      "put": 0.17
+      "call": 11.17,
+      "put": 0.11
     }
   ],
   "availableExp": [
