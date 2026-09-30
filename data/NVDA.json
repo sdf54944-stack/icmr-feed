@@ -1,6 +1,6 @@
 {
   "symbol": "NVDA",
-  "spot": 228.9,
+  "spot": 229.1,
   "exp": "2026-09-30 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
     {
@@ -128,13 +128,6 @@
       "putOi": 1069.0,
       "call": 0.0,
       "put": 0.0
-    },
-    {
-      "strike": 217.5,
-      "callOi": 5733.0,
-      "putOi": 24621.0,
-      "call": 9.9,
-      "put": 0.08
     }
   ],
   "availableExp": [
