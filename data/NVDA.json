@@ -1,49 +1,49 @@
 {
   "symbol": "NVDA",
-  "spot": 232.2,
+  "spot": 231.6,
   "exp": "2026-10-02 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
     {
       "strike": 242.5,
       "callOi": 34591.0,
       "putOi": 643.0,
-      "call": 0.01,
-      "put": 10.32
+      "call": 0.03,
+      "put": 10.93
     },
     {
       "strike": 240.0,
       "callOi": 317583.0,
       "putOi": 44702.0,
       "call": 0.06,
-      "put": 7.82
+      "put": 8.45
     },
     {
       "strike": 237.5,
       "callOi": 40886.0,
       "putOi": 1584.0,
-      "call": 0.23,
-      "put": 5.47
+      "call": 0.17,
+      "put": 6.03
     },
     {
       "strike": 235.0,
       "callOi": 230205.0,
       "putOi": 43432.0,
-      "call": 0.66,
-      "put": 3.42
+      "call": 0.49,
+      "put": 3.85
     },
     {
       "strike": 232.5,
       "callOi": 67053.0,
       "putOi": 6989.0,
-      "call": 1.58,
-      "put": 1.85
+      "call": 1.27,
+      "put": 2.13
     },
     {
       "strike": 230.0,
       "callOi": 351572.0,
       "putOi": 150764.0,
-      "call": 3.12,
-      "put": 0.88
+      "call": 2.64,
+      "put": 1.0
     },
     {
       "strike": 228.0,
@@ -56,8 +56,8 @@
       "strike": 227.5,
       "callOi": 87184.0,
       "putOi": 19231.0,
-      "call": 5.12,
-      "put": 0.39
+      "call": 4.57,
+      "put": 0.45
     },
     {
       "strike": 227.0,
@@ -77,8 +77,8 @@
       "strike": 225.0,
       "callOi": 173808.0,
       "putOi": 105432.0,
-      "call": 7.43,
-      "put": 0.2
+      "call": 6.82,
+      "put": 0.21
     },
     {
       "strike": 224.0,
@@ -98,8 +98,8 @@
       "strike": 222.5,
       "callOi": 6402.0,
       "putOi": 23245.0,
-      "call": 9.85,
-      "put": 0.11
+      "call": 9.25,
+      "put": 0.12
     },
     {
       "strike": 222.0,
@@ -114,6 +114,13 @@
       "putOi": 6000.0,
       "call": 0.0,
       "put": 0.0
+    },
+    {
+      "strike": 220.0,
+      "callOi": 326385.0,
+      "putOi": 233960.0,
+      "call": 11.7,
+      "put": 0.08
     }
   ],
   "availableExp": [
