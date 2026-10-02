@@ -1,6 +1,6 @@
 {
   "symbol": "NVDA",
-  "spot": 236.5,
+  "spot": 236.0,
   "exp": "2026-10-02 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
     {
@@ -8,56 +8,56 @@
       "callOi": 40340.0,
       "putOi": 297.0,
       "call": 0.01,
-      "put": 10.8
+      "put": 11.5
     },
     {
       "strike": 245.0,
       "callOi": 272384.0,
       "putOi": 13769.0,
       "call": 0.01,
-      "put": 8.5
+      "put": 8.95
     },
     {
       "strike": 242.5,
       "callOi": 55927.0,
       "putOi": 2090.0,
       "call": 0.01,
-      "put": 5.95
+      "put": 6.05
     },
     {
       "strike": 240.0,
       "callOi": 340395.0,
       "putOi": 44732.0,
       "call": 0.03,
-      "put": 3.62
+      "put": 4.0
     },
     {
       "strike": 237.5,
       "callOi": 53903.0,
       "putOi": 1973.0,
-      "call": 0.24,
-      "put": 1.3
+      "call": 0.14,
+      "put": 1.65
     },
     {
       "strike": 235.0,
       "callOi": 260072.0,
       "putOi": 47904.0,
-      "call": 1.67,
-      "put": 0.21
+      "call": 1.26,
+      "put": 0.28
     },
     {
       "strike": 232.5,
       "callOi": 73752.0,
       "putOi": 10719.0,
-      "call": 3.97,
-      "put": 0.07
+      "call": 3.55,
+      "put": 0.06
     },
     {
       "strike": 230.0,
       "callOi": 364073.0,
       "putOi": 168605.0,
-      "call": 6.47,
-      "put": 0.04
+      "call": 6.0,
+      "put": 0.03
     },
     {
       "strike": 228.0,
@@ -70,8 +70,8 @@
       "strike": 227.5,
       "callOi": 73333.0,
       "putOi": 37019.0,
-      "call": 8.95,
-      "put": 0.03
+      "call": 8.5,
+      "put": 0.01
     },
     {
       "strike": 227.0,
@@ -91,7 +91,7 @@
       "strike": 225.0,
       "callOi": 173920.0,
       "putOi": 122595.0,
-      "call": 11.45,
+      "call": 10.98,
       "put": 0.01
     }
   ],
