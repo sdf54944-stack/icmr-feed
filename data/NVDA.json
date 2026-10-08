@@ -1,42 +1,49 @@
 {
   "symbol": "NVDA",
-  "spot": 230.1,
+  "spot": 231.0,
   "exp": "2026-10-09 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
+    {
+      "strike": 242.5,
+      "callOi": 46686.0,
+      "putOi": 9258.0,
+      "call": 0.03,
+      "put": 12.2
+    },
     {
       "strike": 240.0,
       "callOi": 398227.0,
       "putOi": 100187.0,
       "call": 0.06,
-      "put": 9.9
+      "put": 9.82
     },
     {
       "strike": 237.5,
       "callOi": 28001.0,
       "putOi": 20820.0,
-      "call": 0.15,
-      "put": 7.4
+      "call": 0.14,
+      "put": 7.0
     },
     {
       "strike": 235.0,
       "callOi": 183393.0,
       "putOi": 94644.0,
-      "call": 0.38,
-      "put": 5.15
+      "call": 0.34,
+      "put": 4.7
     },
     {
       "strike": 232.5,
       "callOi": 14667.0,
       "putOi": 19804.0,
-      "call": 0.92,
-      "put": 3.2
+      "call": 0.93,
+      "put": 2.75
     },
     {
       "strike": 230.0,
       "callOi": 311003.0,
       "putOi": 164889.0,
-      "call": 1.98,
-      "put": 1.77
+      "call": 2.12,
+      "put": 1.42
     },
     {
       "strike": 228.0,
@@ -49,8 +56,8 @@
       "strike": 227.5,
       "callOi": 8700.0,
       "putOi": 22419.0,
-      "call": 3.62,
-      "put": 0.91
+      "call": 3.85,
+      "put": 0.71
     },
     {
       "strike": 227.0,
@@ -70,8 +77,8 @@
       "strike": 225.0,
       "callOi": 150916.0,
       "putOi": 129684.0,
-      "call": 5.65,
-      "put": 0.46
+      "call": 5.95,
+      "put": 0.35
     },
     {
       "strike": 224.0,
@@ -91,8 +98,8 @@
       "strike": 222.5,
       "callOi": 4075.0,
       "putOi": 28056.0,
-      "call": 7.95,
-      "put": 0.23
+      "call": 8.27,
+      "put": 0.18
     },
     {
       "strike": 222.0,
@@ -112,15 +119,8 @@
       "strike": 220.0,
       "callOi": 311718.0,
       "putOi": 258664.0,
-      "call": 10.38,
-      "put": 0.12
-    },
-    {
-      "strike": 219.0,
-      "callOi": 1658.0,
-      "putOi": 1490.0,
-      "call": 0.0,
-      "put": 0.0
+      "call": 10.62,
+      "put": 0.1
     }
   ],
   "availableExp": [
