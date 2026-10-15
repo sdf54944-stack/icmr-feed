@@ -1,84 +1,84 @@
 {
   "symbol": "AAPL",
-  "spot": 344.9,
+  "spot": 341.8,
   "exp": "2026-10-16 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
-    {
-      "strike": 357.5,
-      "callOi": 13177.0,
-      "putOi": 92.0,
-      "call": 0.03,
-      "put": 13.02
-    },
     {
       "strike": 355.0,
       "callOi": 93685.0,
       "putOi": 5693.0,
-      "call": 0.07,
-      "put": 10.32
+      "call": 0.03,
+      "put": 12.57
     },
     {
       "strike": 352.5,
       "callOi": 14541.0,
       "putOi": 971.0,
-      "call": 0.17,
-      "put": 7.7
+      "call": 0.07,
+      "put": 10.43
     },
     {
       "strike": 350.0,
       "callOi": 240932.0,
       "putOi": 26664.0,
-      "call": 0.42,
-      "put": 5.45
+      "call": 0.19,
+      "put": 8.05
     },
     {
       "strike": 347.5,
       "callOi": 16344.0,
       "putOi": 3667.0,
-      "call": 1.01,
-      "put": 3.5
+      "call": 0.45,
+      "put": 5.85
     },
     {
       "strike": 345.0,
       "callOi": 72662.0,
       "putOi": 17971.0,
-      "call": 2.06,
-      "put": 2.08
+      "call": 1.03,
+      "put": 3.97
     },
     {
       "strike": 342.5,
       "callOi": 9965.0,
       "putOi": 11636.0,
-      "call": 3.65,
-      "put": 1.13
+      "call": 2.01,
+      "put": 2.39
     },
     {
       "strike": 340.0,
       "callOi": 191164.0,
       "putOi": 64936.0,
-      "call": 5.6,
-      "put": 0.58
+      "call": 3.47,
+      "put": 1.42
     },
     {
       "strike": 337.5,
       "callOi": 7056.0,
       "putOi": 13871.0,
-      "call": 7.8,
-      "put": 0.3
+      "call": 5.38,
+      "put": 0.82
     },
     {
       "strike": 335.0,
       "callOi": 54159.0,
       "putOi": 40788.0,
-      "call": 10.2,
-      "put": 0.17
+      "call": 7.53,
+      "put": 0.48
     },
     {
       "strike": 332.5,
       "callOi": 2714.0,
       "putOi": 11850.0,
-      "call": 12.52,
-      "put": 0.1
+      "call": 10.03,
+      "put": 0.28
+    },
+    {
+      "strike": 330.0,
+      "callOi": 105173.0,
+      "putOi": 102159.0,
+      "call": 12.25,
+      "put": 0.18
     }
   ],
   "availableExp": [
