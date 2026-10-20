@@ -1,15 +1,8 @@
 {
   "symbol": "GLD",
-  "spot": 377.9,
+  "spot": 377.3,
   "exp": "2026-10-20 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
-    {
-      "strike": 385.0,
-      "callOi": 28348.0,
-      "putOi": 18324.0,
-      "call": 0.01,
-      "put": 7.25
-    },
     {
       "strike": 384.0,
       "callOi": 4673.0,
@@ -107,6 +100,13 @@
       "putOi": 2430.0,
       "call": 0.0,
       "put": 0.0
+    },
+    {
+      "strike": 370.0,
+      "callOi": 11601.0,
+      "putOi": 46453.0,
+      "call": 7.95,
+      "put": 0.01
     }
   ],
   "availableExp": [

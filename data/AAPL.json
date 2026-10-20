@@ -1,15 +1,8 @@
 {
   "symbol": "AAPL",
-  "spot": 340.0,
+  "spot": 337.8,
   "exp": "2026-10-21 (OI \u0645\u062c\u0645\u0651\u0639)",
   "rows": [
-    {
-      "strike": 352.5,
-      "callOi": 13381.0,
-      "putOi": 615.0,
-      "call": 0.01,
-      "put": 13.15
-    },
     {
       "strike": 350.0,
       "callOi": 223452.0,
@@ -79,6 +72,13 @@
       "putOi": 4288.0,
       "call": 12.03,
       "put": 0.04
+    },
+    {
+      "strike": 325.0,
+      "callOi": 30255.0,
+      "putOi": 35995.0,
+      "call": 14.12,
+      "put": 0.03
     }
   ],
   "availableExp": [
